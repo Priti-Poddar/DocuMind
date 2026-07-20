@@ -1,0 +1,37 @@
+import { createDocument } from "../services/document/document.service.js";
+
+export const uploadDocument = async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({
+        success: false,
+
+        message: "No PDF uploaded",
+      });
+    }
+
+    const document = await createDocument(req.file);
+
+    return res.status(202).json({
+      success: true,
+
+      message: "Document uploaded successfully. Processing started.",
+
+      data: {
+        documentId: document._id,
+
+        jobId: document.jobId,
+
+        status: document.status,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).json({
+      success: false,
+
+      message: "Internal Server Error",
+    });
+  }
+};
