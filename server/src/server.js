@@ -2,6 +2,9 @@ import app from "./app.js";
 import env from "./config/env.js";
 import connectDB from "./config/db.js";
 import redisClient from "./config/redis.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const startServer = async () => {
     try {
