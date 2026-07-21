@@ -10,3 +10,9 @@ export const createConversation = async (documentId, title = "New Chat") => {
 export const getConversation = async (conversationId) => {
   return await Conversation.findById(conversationId);
 };
+
+export const findConversationByDocument = async (documentId) => {
+  return await Conversation.findOne({
+    documentId,
+  });
+};

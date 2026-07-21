@@ -1,6 +1,7 @@
 import {
   createConversation,
   getConversation,
+  findConversationByDocument,
 } from "../services/conversation/conversation.service.js";
 
 import { getMessages } from "../services/message/message.service.js";
@@ -63,6 +64,31 @@ export const history = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+};
+
+export const getByDocument = async (req, res) => {
+  try {
+    const { documentId } = req.params;
+
+    const conversation = await findConversationByDocument(documentId);
+
+    if (!conversation) {
+      return res.json({
+        success: true,
+        conversation: null,
+      });
+    }
+
+    return res.json({
+      success: true,
+      conversation,
+    });
+  } catch (err) {
+    return res.status(500).json({
       success: false,
       message: err.message,
     });

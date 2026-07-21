@@ -1,5 +1,23 @@
 import { createDocument } from "../services/document/document.service.js";
 
+import { getAllDocuments } from "../services/document/document.service.js";
+
+export const getDocuments = async (req, res) => {
+  try {
+    const documents = await getAllDocuments();
+
+    res.status(200).json({
+      success: true,
+      documents,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+};
+
 export const uploadDocument = async (req, res) => {
   try {
     if (!req.file) {

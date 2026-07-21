@@ -1,19 +1,12 @@
-import "./index.css";
-import Chat from "./components/Chat";
-import Upload from "./components/Upload";
+import { Routes, Route } from "react-router-dom";
+
+import Home from "./pages/Home/Home";
 
 function App() {
   return (
-    <div className="container">
-      <div className="sidebar">
-        <h2>📄 DocuMind</h2>
-        <Upload />
-      </div>
-
-      <div className="chat">
-        <Chat />
-      </div>
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+    </Routes>
   );
 }
 

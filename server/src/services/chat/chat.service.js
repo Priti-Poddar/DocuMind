@@ -17,7 +17,7 @@ export const chatWithDocument = async (conversationId, question) => {
   const documentId = conversation.documentId;
 
   // Get previous messages
-  const history = await getMessages(conversationId);
+  const history = await getMessages(conversationId, 10);
 
   // Retrieve relevant chunks
   const chunks = await retrieveRelevantChunks(documentId, question, 5);

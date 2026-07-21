@@ -33,15 +33,38 @@ export const createDocument = async (file) => {
   return document;
 };
 
+// export const updateDocumentStatus = async (documentId, status) => {
+//   return await Document.findByIdAndUpdate(
+//     documentId,
+//     {
+//       status,
+//       processedAt: status === DOCUMENT_STATUS.COMPLETED ? new Date() : null,
+//     },
+//     {
+//       returnDocument: "after",
+//     },
+//   );
+// };
+
 export const updateDocumentStatus = async (documentId, status) => {
-  return await Document.findByIdAndUpdate(
+  const doc = await Document.findByIdAndUpdate(
     documentId,
     {
       status,
       processedAt: status === DOCUMENT_STATUS.COMPLETED ? new Date() : null,
     },
     {
-      returnDocument: "after",
+      new: true, // <-- use this instead
     },
   );
+
+  console.log("Updated Document:", doc);
+
+  return doc;
+};
+
+export const getAllDocuments = async () => {
+  return await Document.find()
+    .sort({ createdAt: -1 })
+    .select("_id originalName status createdAt");
 };
