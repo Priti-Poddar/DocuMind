@@ -14,6 +14,7 @@ import { useDocument } from "../../context/DocumentContext";
 import UploadButton from "../document/UploadButton";
 import {
   createConversation,
+  getConversationByDocument,
   getMessages,
 } from "../../services/conversation.service";
 import { useConversation } from "../../context/ConversationContext";
@@ -48,18 +49,29 @@ const Sidebar = () => {
 
   const handleSelectDocument = async (doc) => {
     if (doc.status !== "COMPLETED") {
-      alert("This document is still processing.");
+      alert("Document is still processing.");
       return;
     }
 
     try {
       setSelectedDocument(doc);
 
-      const res = await createConversation(doc._id, doc.originalName);
+      let conversation;
 
-      setConversation(res.conversation);
+      // Check if conversation already exists
+      const existing = await getConversationByDocument(doc._id);
 
-      const history = await getMessages(res.conversation._id);
+      if (existing.conversation) {
+        conversation = existing.conversation;
+      } else {
+        const created = await createConversation(doc._id, doc.originalName);
+
+        conversation = created.conversation;
+      }
+
+      setConversation(conversation);
+
+      const history = await getMessages(conversation._id);
 
       setMessages(history.messages);
     } catch (err) {
