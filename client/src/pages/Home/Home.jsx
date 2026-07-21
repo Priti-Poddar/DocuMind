@@ -1,6 +1,6 @@
-import MainLayout from "../../components/layout/MainLayout";
-import ChatWindow from "../../components/chat/ChatWindow";
-import MessageInput from "../../components/chat/MessageInput";
+import MainLayout from "../../components/Layout/MainLayout";
+import ChatWindow from "../../components/Chat/ChatWindow";
+import MessageInput from "../../components/Chat/MessageInput";
 
 const Home = () => {
   return (
