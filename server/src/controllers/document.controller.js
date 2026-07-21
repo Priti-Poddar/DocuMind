@@ -33,7 +33,7 @@ export const uploadDocument = async (req, res) => {
     return res.status(202).json({
       success: true,
 
-      message: "Document uploaded successfully. Processing started.",
+      message: "oaded successfully. Processing started.",
 
       data: {
         documentId: document._id,

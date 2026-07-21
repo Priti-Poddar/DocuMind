@@ -20,3 +20,22 @@ export const getConversationByDocument = async (documentId) => {
 
   return res.data;
 };
+
+export const getConversations = async (documentId) => {
+  const res = await api.get(`/conversations/document/${documentId}/all`);
+
+  return res.data;
+};
+
+export const renameConversation = async (conversationId, title) => {
+  const res = await api.patch(`/conversations/${conversationId}/title`, {
+    title,
+  });
+
+  return res.data;
+};
+
+export const deleteConversation = async (id) => {
+  const res = await api.delete(`/conversations/${id}`);
+  return res.data;
+};

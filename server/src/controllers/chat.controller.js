@@ -13,10 +13,9 @@ export const chat = async (req, res) => {
     }
 
     const result = await chatWithDocument(conversationId, question);
-    
+
     return res.json({
       success: true,
-
       answer: result.answer,
 
       sources: result.sources,

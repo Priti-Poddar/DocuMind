@@ -19,10 +19,10 @@ const UploadButton = () => {
     try {
       const res = await uploadDocument(file);
       console.log("Upload success:", res);
-      alert("Upload successful!");
+      toast.success("Document uploaded.");
     } catch (err) {
       console.error(err);
-      alert("Upload failed");
+      toast.error("Upload failed.");
     }
   };
 
