@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { Upload } from "lucide-react";
 import { uploadDocument } from "../../services/document.service";
+import toast from "react-hot-toast";
 
 const UploadButton = () => {
   const inputRef = useRef(null);
