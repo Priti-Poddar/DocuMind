@@ -34,7 +34,8 @@ const startWorker = async () => {
 
       await setJobStatus(job.documentId, DOCUMENT_STATUS.PROCESSING);
 
-      const pdf = await parsePDF(job.filePath);
+      const pdf = await parsePDF(job.s3Key);
+      // const pdf = downloadFromS3(job.s3Key);
 
       const chunks = chunkText(pdf.text);
  

@@ -2,17 +2,19 @@ import multer from "multer";
 import path from "path";
 import { v4 as uuid } from "uuid";
 
-const storage = multer.diskStorage({
-  destination(req, file, cb) {
-    cb(null, "src/uploads");
-  },
+// const storage = multer.diskStorage({
+//   destination(req, file, cb) {
+//     cb(null, "src/uploads");
+//   },
 
-  filename(req, file, cb) {
-    const extension = path.extname(file.originalname);
+//   filename(req, file, cb) {
+//     const extension = path.extname(file.originalname);
 
-    cb(null, `${uuid()}${extension}`);
-  },
-});
+//     cb(null, `${uuid()}${extension}`);
+//   },
+// });
+
+const storage = multer.memoryStorage();
 
 
 const fileFilter = (req, file, cb) => {

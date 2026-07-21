@@ -8,12 +8,12 @@ const documentSchema = new mongoose.Schema(
       required: true,
     },
 
-    fileName: {
+    s3Key: {
       type: String,
       required: true,
     },
 
-    filePath: {
+    fileUrl: {
       type: String,
       required: true,
     },

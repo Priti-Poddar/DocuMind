@@ -2,24 +2,26 @@ import Document from "../../models/Document.js";
 import { addJobToQueue } from "../queue/producer.js";
 import { setJobStatus } from "../queue/jobStatus.js";
 import { DOCUMENT_STATUS } from "../../utils/constants.js";
+import { uploadPDFToS3 } from "../s3/upload.service.js";
 
 export const createDocument = async (file) => {
-  const document = await Document.create({
-    originalName: file.originalname,
+ const { key, url } = await uploadPDFToS3(file);
 
-    fileName: file.filename,
+ const document = await Document.create({
+   originalName: file.originalname,
 
-    filePath: file.path.replace(/\\/g, "/"),
+   s3Key: key,
 
-    fileSize: file.size,
+   fileUrl: url,
 
-    mimeType: file.mimetype,
-  });
+   fileSize: file.size,
+
+   mimeType: file.mimetype,
+ });
 
   const job = {
     documentId: document._id.toString(),
-
-    filePath: document.filePath,
+    s3Key: document.s3Key,
   };
 
   await addJobToQueue(job);
@@ -54,7 +56,7 @@ export const updateDocumentStatus = async (documentId, status) => {
       processedAt: status === DOCUMENT_STATUS.COMPLETED ? new Date() : null,
     },
     {
-      new: true, // <-- use this instead
+      returnDocument: "after",
     },
   );
 
